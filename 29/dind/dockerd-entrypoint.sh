@@ -124,6 +124,7 @@ if [ "$#" -eq 0 ] || [ "${1#-}" != "$1" ]; then
 		set -- dockerd \
 			--host="$dockerSocket" \
 			--host=tcp://0.0.0.0:2376 \
+			--feature "embedded-containerd" \
 			--tlsverify \
 			--tlscacert "$DOCKER_TLS_CERTDIR/server/ca.pem" \
 			--tlscert "$DOCKER_TLS_CERTDIR/server/cert.pem" \
@@ -135,6 +136,7 @@ if [ "$#" -eq 0 ] || [ "${1#-}" != "$1" ]; then
 		set -- dockerd \
 			--host="$dockerSocket" \
 			--host=tcp://0.0.0.0:2375 \
+			--feature "embedded-containerd" \
 			"$@"
 		DOCKERD_ROOTLESS_ROOTLESSKIT_FLAGS="${DOCKERD_ROOTLESS_ROOTLESSKIT_FLAGS:-} -p 0.0.0.0:2375:2375/tcp"
 	fi

@@ -64,12 +64,12 @@ RUN set -eux; \
 		--no-same-owner \
 # we exclude the CLI binary because we already extracted that over in the "docker:{{ env.version }}-cli" image that we're FROM and we don't want to duplicate those bytes again in this layer
 		--exclude 'docker/docker' \
+		--exclude 'docker/containerd' \
+		--exclude 'docker/ctr' \
 	; \
 	rm docker.tgz; \
 	\
 	dockerd --version; \
-	containerd --version; \
-	ctr --version; \
 	runc --version
 
 # https://github.com/docker/docker/tree/master/hack/dind
