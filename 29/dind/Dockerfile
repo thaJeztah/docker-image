@@ -79,12 +79,13 @@ RUN set -eux; \
 		--no-same-owner \
 # we exclude the CLI binary because we already extracted that over in the "docker:29-cli" image that we're FROM and we don't want to duplicate those bytes again in this layer
 		--exclude 'docker/docker' \
+# exclude containerd, relying on the "embedded containerd" instead: https://github.com/moby/moby/pull/53388 (makes for a smaller image)
 		--exclude 'docker/containerd' \
-		--exclude 'docker/ctr' \
 	; \
 	rm docker.tgz; \
 	\
 	dockerd --version; \
+	ctr --version; \
 	runc --version
 
 # https://github.com/docker/docker/tree/master/hack/dind
